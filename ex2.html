@@ -26,6 +26,16 @@
     <script>
         var square=true;
        // add code here
+
+        function changeShape() {
+            var myDiv = document.getElementById("div1");
+            if (square) {
+                myDiv.style.borderRadius = "50%"; // Make it a circle
+            } else {
+                myDiv.style.borderRadius = "0"; // Make it a square
+            }
+            square = !square; // Flip the value (true becomes false, false becomes true)
+        }
         
     </script>
 

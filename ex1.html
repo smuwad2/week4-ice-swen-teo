@@ -1,32 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <title>Form Validation</title>
 </head>
 <body>
     
     <h2>Form Validation</h2>
 
-    <form name="inputForm" action="#" onsubmit="return validateForm('inputForm')" autocomplete="on" >
-            ID: <input type="text" name="id" ><br>
-            Age: <input type="number" name="age" ><br>
-            Email: <input type="text" name="email" ><br>
-            Password: <input type="password" name="password" ><br>
+    <form name="inputForm" action="#" onsubmit="return validateForm()" autocomplete="on">
+            ID: <input type="text" name="id" id="id"><br>
+            Age: <input type="number" name="age" id="age"><br>
+            Email: <input type="text" name="email" id="email"><br>
+            Password: <input type="password" name="password" id="password"><br>
             <input type="submit" value="Submit"><br>
-        </form>
+    </form>
 
-        <script>
-        
-            function validateForm(formName) {
-                // Error messages:
-                // Invalid age: Age must be between 10 and 40.
-                // Invalid email: Email must contain the character @.
-                // Empty password: Password must be non-empty.
-                var errorMessages="";
-                
-                
+    <script>
+        function validateForm() {
+            // Get the VALUES from the input fields, not the elements themselves
+            var age = document.getElementById("age").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var errorMessages = "";
+
+            // Error messages from your tests:
+            const age_err_msg = "Age must be between 10 and 40.";
+            const email_err_msg = "Email must contain the character @.";
+            const password_err_msg = "Password must be non-empty.";
+
+            // 1. Corrected age validation logic
+            // Checks if the field is empty, not a number, or outside the range 10-40.
+            if (age === "" || isNaN(age) || Number(age) < 10 || Number(age) > 40) {
+                errorMessages += age_err_msg + "\n";
             }
-     
-         </script>
+            
+            // 2. Corrected method casing and check on the value
+            if (!email.includes("@")) {
+                errorMessages += email_err_msg + "\n";
+            }
+
+            // 3. Corrected check on the value's length
+            if (password.length === 0) {
+                errorMessages += password_err_msg + "\n";
+            }
+
+            // 4. Corrected return logic
+            // If the error string is not empty, show the alert and stop submission
+            if (errorMessages !== "") {
+                // Use .trim() to remove any trailing newline characters
+                alert(errorMessages.trim()); 
+                return false; // Prevents the form from submitting
+            }
+
+            // If there are no errors, allow the form to submit
+            return true; 
+        }
+    </script>
 </body>
 </html>
